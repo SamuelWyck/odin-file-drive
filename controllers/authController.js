@@ -44,6 +44,21 @@ const signUpPost = asyncHandler(async function(req, res, next) {
 });
 
 
+const logInGet = asyncHandler(async function(req, res) {
+    let errorMsg = null;
+    if (req.session.messages) {
+        errorMsg = req.session.messages[0];
+        delete req.session.messages;
+    }
+
+    return res.render("authPage", {
+        title: "Log In",
+        signUp: false,
+        errors: (errorMsg) ? [{msg: errorMsg}] : null
+    });
+});
+
+
 
 module.exports = {
     signUpGet,
@@ -53,5 +68,6 @@ module.exports = {
         passport.authenticate("local", {
             successRedirect: "/"
         })
-    ]
+    ],
+    logInGet
 };
