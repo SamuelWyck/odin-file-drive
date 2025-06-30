@@ -9,8 +9,12 @@ async function isUniqueUsername(username) {
             username: username
         }
     });
-    isUnique = (!user) ? true : false;
-    return user;
+    
+    if (user) {
+        throw new Error();
+    }
+
+    return true;
 };
 
 
