@@ -1,5 +1,8 @@
-const prisma = require("../generated/prisma");
+const {PrismaClient} = require("../generated/prisma");
 
+
+
+const prisma = new PrismaClient();
 
 
 async function findUniqueUser(options) {
@@ -8,7 +11,13 @@ async function findUniqueUser(options) {
 };
 
 
+async function createUser(options) {
+    await prisma.user.create(options);
+};
+
+
 
 module.exports = {
-    findUniqueUser
+    findUniqueUser,
+    createUser
 };
