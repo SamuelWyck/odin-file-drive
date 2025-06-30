@@ -41,7 +41,6 @@ app.use(passport.session());
 
 app.use("/auth", authRoute);
 app.get("/", function(req, res) {
-    console.log(req.user)
     return res.send(`hello ${req.user}`)
 })
 
