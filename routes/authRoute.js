@@ -9,6 +9,7 @@ const authRoute = Router();
 authRoute.get("/signup", authController.signUpGet);
 authRoute.post("/signup", authController.signUpPost);
 authRoute.get("/login", authController.logInGet);
+authRoute.post("/login", authController.logInPost);
 authRoute.get("/logout", authController.logOutGet);
 
 

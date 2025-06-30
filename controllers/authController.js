@@ -80,5 +80,12 @@ module.exports = {
         })
     ],
     logInGet,
+    logInPost: [
+        passport.authenticate("local", {
+            successRedirect: "/",
+            failureRedirect: "/auth/login",
+            failureMessage: true
+        })
+    ],
     logOutGet
 };
