@@ -12,7 +12,7 @@ passport.use(
         try {
             const user = await db.findUniqueUser({
                 where: {
-                    username: {equals: username}
+                    username: username
                 }
             });
             if (!user) {
@@ -40,9 +40,9 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(async function(id, done) {
     try {
-        const user = db.findUniqueUser({
+        const user = await db.findUniqueUser({
             where: {
-                id: {equals: id}
+                id: id
             }
         });
         done(null, user);
