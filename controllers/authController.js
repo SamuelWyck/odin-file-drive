@@ -59,6 +59,16 @@ const logInGet = asyncHandler(async function(req, res) {
 });
 
 
+const logOutGet = asyncHandler(async function(req, res, next) {
+    req.logout(function(error) {
+        if (error) {
+            return next(error);
+        }
+        return res.redirect("/auth/login");
+    });
+});
+
+
 
 module.exports = {
     signUpGet,
@@ -69,5 +79,6 @@ module.exports = {
             successRedirect: "/"
         })
     ],
-    logInGet
+    logInGet,
+    logOutGet
 };
