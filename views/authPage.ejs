@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Doogle Grive</title>
+</head>
+<body>
+<main class="auth-page">
+    <p class="auth-title"><%= title %></p>
+    <div class="auth-form-modal">
+        <%- include("partials/errors") %>
+        <form action="/auth/<%= (signUp) ? 'signup' : 'login' %>" method="POST" class="auth-form">
+            <% if (signUp) { %>
+                <div>
+                    <label for="firstname">Firstname</label>
+                    <input type="text" name="firstname" id="firstname" value="<%= locals.firstname %>" required>
+                </div>
+                <div>
+                    <label for="lastname">Lastname</label>
+                    <input type="text" name="lastname" id="lastname" value="<%= locals.lastname %>" required>
+                </div>
+            <% } %>
+            <div>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="<%= locals.username %>" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <% if (signUp) { %>
+                <div>
+                    <label for="confirm">Confirm</label>
+                    <input type="password" id="confirm" name="confirm" required>
+                </div>
+            <% } %>
+            <div>
+                <button type="submit"><%= (signUp) ? "Sign Up" : "Log In" %></button>
+            </div>
+        </form>
+        <% if (signUp) { %>
+            <a href="/auth/login">Already have an account?</a>
+        <% } else { %>
+            <a href="/auth/signup">Don't have an account?</a>
+        <% } %>
+    </div>
+</main>
+</body>
+</html>
