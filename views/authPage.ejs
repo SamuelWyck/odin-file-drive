@@ -3,21 +3,27 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/svg" href="/favicon.svg">
     <title>Doogle Grive</title>
 </head>
 <body>
 <main class="auth-page">
     <p class="auth-title"><%= title %></p>
     <div class="auth-form-modal">
+        <div class="auth-banner">
+            <img src="/favicon.svg" alt="">
+            <p>Doogle Grive</p>
+        </div>
         <%- include("partials/errors") %>
         <form action="/auth/<%= (signUp) ? 'signup' : 'login' %>" method="POST" class="auth-form">
             <% if (signUp) { %>
                 <div>
-                    <label for="firstname">Firstname</label>
+                    <label for="firstname">First name</label>
                     <input type="text" name="firstname" id="firstname" value="<%= locals.firstname %>" required>
                 </div>
                 <div>
-                    <label for="lastname">Lastname</label>
+                    <label for="lastname">Last name</label>
                     <input type="text" name="lastname" id="lastname" value="<%= locals.lastname %>" required>
                 </div>
             <% } %>
