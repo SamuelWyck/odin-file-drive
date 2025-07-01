@@ -4,6 +4,7 @@ const {signUpValidator} = require("../utils/validators.js");
 const bcrypt = require("bcryptjs");
 const db = require("../db/querys.js");
 const passport = require("../utils/passport.js");
+const {createUserDir} = require("../fileManager/fileOperations.js");
 
 
 
@@ -40,6 +41,9 @@ const signUpPost = asyncHandler(async function(req, res, next) {
             password: pwdHash
         }
     });
+
+    await createUserDir(username);
+
     return next();
 });
 
