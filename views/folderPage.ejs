@@ -12,8 +12,27 @@
 <div id="root">
     <%- include("partials/header") %>
     <main>
+        <p class="folder-name"><%= folderTitle %>/</p>
         <div class="folder-contents">
-            
+            <button class="new-content-btn">
+                <img class="new-content-img" src="/plus-box.svg" alt="plus">
+            </button>
+            <% for (let folder of folders) { %>
+                <%- include("partials/contentCard", {content: folder, isFolder: true}) %>
+            <% }%>
+            <% for (let file of files) { %>
+                <%- include("partials/contentCard", {content: file, isFolder: false}) %>
+            <% } %>
+        </div>
+        <div class="delete-form">
+            <p class="delete-form-title">Delete?</p>
+            <button class="cancel-delete-btn" type="button">Cancel</button>
+            <form action="/" method="POST">
+                <input class="delete-id-input" type="text" name="id" hidden>
+                <input class="delete-url-input" type="text" name="redirectUrl" hidden>
+                <input class="delete-type-input" type="text" name="isFolder" hidden>
+                <button class="delete-btn">Delete</button>
+            </form>
         </div>
     </main>
 </div>
