@@ -26,7 +26,7 @@ const userPageGet = asyncHandler(async function(req, res, next) {
     });
 
 
-    return res.render("userPage", {
+    return res.render("folderPage", {
         docTitle: req.params.contentName
     });
 });
