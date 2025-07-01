@@ -1,25 +1,46 @@
+function isDir(contentName) {
+    return !/\.\w+$/.test(contentName);
+};
+
+
+function buildReqParams(req, path, contentName, isDir) {
+    req.params.path = path;
+    req.params.contentName = contentName;
+    req.params.isDir = isDir;
+};
+
+
 function parseFilePath(req, res, next) {
     if (!req.params.path) {
-        req.params.path = req.user.username;
+        buildReqParams(req, "", req.user.username, true);
         return next();
     }
 
-    const pathParts = req.params.path;
-    const path = [
-        req.user.username,
-        "/"
-    ];
-
-    for (let i = 0; i < pathParts.length; i += 1) {
-        const part = pathParts[i];
-        path.push(part);
-
-        if (i !== pathParts.length - 1) {
-            path.push("/");
-        }
+    if (req.params.path.length === 1) {
+        const contentName = req.params.path[0];
+        buildReqParams(
+            req, 
+            req.user.username, 
+            contentName, 
+            isDir(contentName)
+        );
+        return next();
     }
 
-    req.params.path = path.join("");
+
+    const pathParts = req.params.path;
+    let path = [req.user.username, "/"];
+
+    for (let i = 0; i < pathParts.length - 1; i += 1) {
+        const part = pathParts[i];
+        path.push(part);
+        path.push("/");
+    }
+    path.pop();
+
+    path = path.join("");
+    const contentName = pathParts[pathParts.length - 1];
+    buildReqParams(req, path, contentName, isDir(contentName));
     return next();
 };
 
