@@ -208,6 +208,11 @@ header .banner-backing {
     left: -18px;
 }
 
+.username-span {
+    max-width: 8ch;
+    text-overflow: ellipsis;
+}
+
 .hidden {
     display: none;
 }
