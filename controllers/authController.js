@@ -4,7 +4,7 @@ const {signUpValidator} = require("../utils/validators.js");
 const bcrypt = require("bcryptjs");
 const db = require("../db/querys.js");
 const passport = require("../utils/passport.js");
-const {createUserDir} = require("../fileManager/fileOperations.js");
+const { name } = require("ejs");
 
 
 
@@ -34,17 +34,20 @@ const signUpPost = asyncHandler(async function(req, res, next) {
     const username = req.body.username.trim();
     const pwdHash = await bcrypt.hash(req.body.password, 10);
 
-    await Promise.all([
-        db.createUser({
-            data: {
-                firstname: firstname,
-                lastname: lastname,
-                username: username,
-                password: pwdHash
+    await db.createUser({
+        data: {
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            password: pwdHash,
+            folders: {
+                create: [{
+                    name: username,
+                    url: ""
+                }]
             }
-        }),
-        createUserDir(username)
-    ]);
+        }
+    });
 
     return next();
 });
