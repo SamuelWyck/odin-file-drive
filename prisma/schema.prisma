@@ -37,12 +37,12 @@ model File {
   url       String
   createdAt DateTime @default(now())
   sizeKB    Int
-  owner     User     @relation(fields: [ownerId], references: [id])
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId   String
-  folder    Folder   @relation(fields: [folderId], references: [id])
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId  String
 
-  @@unique([url, name])
+  @@unique([url, name, ownerId])
 }
 
 model Folder {
@@ -50,12 +50,12 @@ model Folder {
   name      String
   url       String
   createdAt DateTime @default(now())
-  owner     User     @relation(fields: [ownerId], references: [id])
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId   String
   files     File[]
   folders   Folder[] @relation("folder relation")
-  parent    Folder?  @relation("folder relation", fields: [parentId], references: [id])
+  parent    Folder?  @relation("folder relation", fields: [parentId], references: [id], onDelete: Cascade)
   parentId  String?
 
-  @@unique([url, name])
+  @@unique([url, name, ownerId])
 }
