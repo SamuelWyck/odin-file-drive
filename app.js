@@ -4,8 +4,10 @@ const expressSession = require("express-session");
 const {PrismaSessionStore} = require("@quixo3/prisma-session-store");
 const {PrismaClient} = require("./generated/prisma");
 const path = require("node:path");
-const authRoute = require("./routes/authRoute.js");
 const passport = require("./utils/passport.js");
+const addUserToRes = require("./utils/addUserMiddleware.js");
+const authRoute = require("./routes/authRoute.js");
+const userPageRoute = require("./routes/userPageRoute.js");
 
 
 
@@ -38,11 +40,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(addUserToRes);
+
 
 app.use("/auth", authRoute);
-app.get("/", function(req, res) {
-    return res.send(`hello ${req.user}`)
-})
+app.use("/", userPageRoute);
 
 
 const PORT = process.env.PORT;
