@@ -22,22 +22,40 @@ model Session {
 }
 
 model User {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   firstname String
   lastname  String
-  username  String @unique
+  username  String   @unique
   password  String
   files     File[]
+  folders   Folder[]
 }
 
 model File {
   id        String   @id @default(uuid())
   name      String
-  dir_url   String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  url       String
   createdAt DateTime @default(now())
   sizeKB    Int
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  String
 
-  @@unique([dir_url, name])
+  @@unique([url, name])
+}
+
+model Folder {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  createdAt DateTime @default(now())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  files     File[]
+  folders   Folder[] @relation("folder relation")
+  parent    Folder?  @relation("folder relation", fields: [parentId], references: [id])
+  parentId  String?
+
+  @@unique([url, name])
 }
