@@ -21,9 +21,16 @@ async function createFolder(options) {
 };
 
 
+async function findUniqueFolder(options) {
+    const folder = await prisma.folder.findUnique(options);
+    return folder;
+};
+
+
 
 module.exports = {
     findUniqueUser,
     createUser,
-    createFolder
+    createFolder,
+    findUniqueFolder
 };
