@@ -1,11 +1,30 @@
 const asyncHandler = require("express-async-handler");
+const db = require("../db/querys.js");
 
 
 
-const userPageGet = asyncHandler(async function(req, res) {
-    console.log(req.params.path);
-    console.log(req.params.contentName);
-    console.log(req.params.isDir);
+const userPageGet = asyncHandler(async function(req, res, next) {
+    const path = req.params.path;
+    const contentName = req.params.contentName;
+    const isDir = req.params.isDir;
+    if (!isDir) {
+        return next();
+    }
+
+    const folder = await db.findUniqueFolder({
+        where: {
+            url_name_ownerId: {
+                url: path,
+                name: contentName,
+                ownerId: req.user.id
+            }
+        },
+        include: {
+            folders: true,
+            files: true
+        }
+    });
+
 
     return res.render("userPage", {
         docTitle: req.params.contentName
