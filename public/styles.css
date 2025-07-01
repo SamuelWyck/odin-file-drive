@@ -164,7 +164,7 @@ header nav button {
     background: none;
     color: var(--bg-light);
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 header nav button img {
@@ -177,13 +177,11 @@ header nav button img {
     hue-rotate(84deg) 
     brightness(104%) 
     contrast(104%);
-    width: 35px;
+    width: 30px;
 }
 
 .rotate {
     transform: rotate(180deg);
-    position: relative;
-    top: -1px;
 }
 
 header .home-link {
