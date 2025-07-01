@@ -33,16 +33,18 @@ const signUpPost = asyncHandler(async function(req, res, next) {
     const lastname = req.body.lastname.trim();
     const username = req.body.username.trim();
     const pwdHash = await bcrypt.hash(req.body.password, 10);
-    await db.createUser({
-        data: {
-            firstname: firstname,
-            lastname: lastname,
-            username: username,
-            password: pwdHash
-        }
-    });
 
-    await createUserDir(username);
+    await Promise.all([
+        db.createUser({
+            data: {
+                firstname: firstname,
+                lastname: lastname,
+                username: username,
+                password: pwdHash
+            }
+        }),
+        createUserDir(username)
+    ]);
 
     return next();
 });
