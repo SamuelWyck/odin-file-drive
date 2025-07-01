@@ -3,10 +3,12 @@ const asyncHandler = require("express-async-handler");
 
 
 const userPageGet = asyncHandler(async function(req, res) {
-    const filePath = req.params.path;
+    console.log(req.params.path);
+    console.log(req.params.contentName);
+    console.log(req.params.isDir);
 
     return res.render("userPage", {
-        docTitle: filePath
+        docTitle: req.params.contentName
     });
 });
 
