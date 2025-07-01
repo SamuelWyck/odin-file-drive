@@ -1,0 +1,18 @@
+<header>
+    <a href="/" class="home-link">
+        <div class="banner">
+            <div class="banner-backing"></div>
+            <img class="logo" src="/favicon.svg" alt="Doogle">
+            <p class="banner-title">Doogle Grive</p>
+        </div>
+    </a>
+    <nav>
+        <button type="button" class="user-menu-btn">
+            <span class="username-span"><%= locals.user.username %></span>
+            <img class="user-menu-img rotate" src="/menu-arrow.svg" alt="arrow">
+        </button>
+        <div class="user-menu hidden">
+            <a href="/auth/logout">Logout</a>
+        </div>
+    </nav>
+</header>
