@@ -16,8 +16,14 @@ async function createUser(options) {
 };
 
 
+async function createFolder(options) {
+    await prisma.folder.create(options);
+};
+
+
 
 module.exports = {
     findUniqueUser,
-    createUser
+    createUser,
+    createFolder
 };
