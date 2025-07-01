@@ -193,7 +193,7 @@ header .banner-backing {
     position: absolute;
     width: 120%;
     height: 100%;
-    left: -8%;
+    left: -7%;
     background-color: var(--bg-light);
     transform: skewX(-20deg);
 }
