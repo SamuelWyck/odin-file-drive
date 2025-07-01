@@ -122,6 +122,7 @@ form button:hover, form button:focus {
 }
 
 #root {
+    background-color: var(--bg-dark);
     min-height: 100vh;
     display: grid;
     grid-template-rows: min-content 1fr min-content;
@@ -215,6 +216,51 @@ header .banner-backing {
     display: none;
 }
 
+.new-content-btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg);
+    border: 3px solid var(--bg-dark);
+    box-shadow: 0px 0px 5px 0px gray;
+}
+
+.new-content-btn:hover, .new-content-btn:focus {
+    border-color: var(--primary);
+}
+
+.new-content-btn img {
+    width: 50px;
+    filter:
+    brightness(0) 
+    saturate(100%) 
+    invert(47%) 
+    sepia(10%) 
+    saturate(2172%) 
+    hue-rotate(94deg) 
+    brightness(104%) 
+    contrast(84%);
+}
+
+.folder-contents {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+    grid-auto-rows: 300px;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.folder-name {
+    max-width: 15ch;
+    text-align: center;
+    margin: 2rem auto;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary);
+}
 
 
 @media screen and (width <= 500px) {
