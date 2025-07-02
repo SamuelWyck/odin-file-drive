@@ -19,8 +19,8 @@ const uploadFilePost = asyncHandler(async function(req, res, next) {
         .from(process.env.SUPA_BUCKET)
         .upload(
             path.join(req.body.folderUrl, fileName),
-                file
-            )
+            file
+        )
     ]);
 
     if (supa.error) {
