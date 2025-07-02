@@ -216,23 +216,32 @@ header .banner-backing {
     display: none;
 }
 
-.new-content-btn {
+.upload-label {
+    outline: none;
+    position: relative;
     cursor: pointer;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
+    --upload-color: hsl(0 0% 70%);
     background-color: var(--bg);
-    border: 3px solid var(--bg-dark);
+    border: 3px solid var(--upload-color);
     box-shadow: 0px 0px 5px 0px gray;
+    --filter-color:
+    brightness(0) 
+    saturate(100%) 
+    invert(64%) 
+    sepia(75%) 
+    saturate(0%) 
+    hue-rotate(231deg) 
+    brightness(102%) 
+    contrast(80%);
 }
 
-.new-content-btn:hover, .new-content-btn:focus {
-    border-color: var(--primary);
-}
-
-.new-content-btn img {
-    width: 50px;
-    filter:
+.upload-label:hover, .upload-label:focus {
+    --upload-color: var(--primary);
+    --filter-color:
     brightness(0) 
     saturate(100%) 
     invert(47%) 
@@ -241,6 +250,20 @@ header .banner-backing {
     hue-rotate(94deg) 
     brightness(104%) 
     contrast(84%);
+    background-color: var(--bg-light);
+}
+
+.upload-label img {
+    width: 50px;
+    filter: var(--filter-color)
+}
+
+.upload-message {
+    position: absolute;
+    top: 20%;
+    max-width: 14ch;
+    text-align: center;
+    color: var(--upload-color);
 }
 
 .folder-contents {
