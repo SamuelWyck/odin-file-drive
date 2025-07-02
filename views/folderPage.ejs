@@ -30,15 +30,16 @@
                 <%- include("partials/contentCard", {content: file, isFolder: false}) %>
             <% } %>
         </div>
-        <div class="delete-form">
+        <div class="delete-form-modal hidden">
             <p class="delete-form-title">Delete?</p>
-            <button class="cancel-delete-btn" type="button">Cancel</button>
-            <form action="/delete/file" method="POST">
-                <input class="delete-id-input" type="text" name="id" hidden>
-                <input class="delete-url-input" type="text" name="redirectUrl" hidden>
-                <input class="delete-type-input" type="text" name="isFolder" hidden>
-                <button class="confirm-delete-btn">Delete</button>
-            </form>
+            <div class="delete-form-btns">
+                <button class="cancel-delete-btn" type="button">Cancel</button>
+                <form class="delete-form" action="/" method="POST">
+                    <input class="delete-id-input" type="text" name="id" hidden>
+                    <input class="delete-url-input" type="text" name="parentDirUrl" hidden>
+                    <button class="confirm-delete-btn">Delete</button>
+                </form>
+            </div>
         </div>
     </main>
 </div>
