@@ -4,7 +4,7 @@
         <button 
             class="delete-btn" 
             data-id="<%= content.id %>" 
-            data-redirectUrl="<%= locals.currentUrl %>"
+            data-redirectUrl="<%= locals.folderUrl %>"
             data-isFolder="<%= isFolder %>"
             data-action="/delete/<%= (isFolder) ? 'folder' : 'file' %>"
         >
