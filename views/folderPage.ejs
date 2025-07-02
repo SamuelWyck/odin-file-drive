@@ -14,10 +14,15 @@
     <main>
         <p class="folder-name"><%= folderTitle %>/</p>
         <div class="folder-contents">
-            <button class="new-content-btn">
-                <!-- might change this to a form with a file upload input -->
-                <img class="new-content-img" src="/plus-box.svg" alt="plus">
-            </button>
+            <form class="upload-form" action="/create/file" method="POST" enctype="multipart/form-data">
+                <label tabindex="0" class="upload-label" for="file">
+                    <p class="upload-message">Click or drop file to upload</p>
+                    <img class="new-content-img" src="/plus-box.svg" alt="plus">
+                </label>
+                <input class="upload-input" type="file" name="file" id="file" hidden>
+                <input type="text" name="folderUrl" value="<%= folderUrl %>" hidden>
+                <input type="text" name="folderId" value="<%= folderId %>" hidden>
+            </form>
             <% for (let folder of folders) { %>
                 <%- include("partials/contentCard", {content: folder, isFolder: true}) %>
             <% }%>
