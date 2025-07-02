@@ -4,7 +4,6 @@ const {signUpValidator} = require("../utils/validators.js");
 const bcrypt = require("bcryptjs");
 const db = require("../db/querys.js");
 const passport = require("../utils/passport.js");
-const { name } = require("ejs");
 
 
 
