@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../db/querys.js");
+const {format} = require("date-fns");
 
 
 
@@ -32,7 +33,9 @@ const userPageGet = asyncHandler(async function(req, res, next) {
         folderId: folder.id,
         folderUrl: (path !== "") ? `${path}/${contentName}` : contentName,
         folders: folder.folders,
-        files: folder.files
+        files: folder.files,
+        format: format,
+        formatStr: "MM/dd/yyyy"
     });
 });
 
