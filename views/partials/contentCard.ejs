@@ -3,8 +3,7 @@
         <button 
         class="delete-btn" 
         data-id="<%= content.id %>" 
-        data-redirectUrl="<%= locals.folderUrl %>"
-        data-isFolder="<%= isFolder %>"
+        data-parentdirurl="<%= locals.folderUrl %>"
         data-action="/delete/<%= (isFolder) ? 'folder' : 'file' %>"
         >
             <img class="delete-img" src="/trash.svg" alt="delete">
