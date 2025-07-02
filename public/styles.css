@@ -270,7 +270,7 @@ header .banner-backing {
 }
 
 .content-card {
-    padding: .5rem;
+    padding: .5rem .5rem 2.2rem .5rem;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -311,11 +311,6 @@ header .banner-backing {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
-}
-
-.content-timestamp {
-    position: relative;
-    top: -20px;
 }
 
 .file-img {
