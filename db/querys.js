@@ -27,10 +27,23 @@ async function findUniqueFolder(options) {
 };
 
 
+async function findUniqueFile(options) {
+    const file = await prisma.file.findUnique(options);
+    return file;
+};
+
+
+async function createFile(options) {
+    await prisma.file.create(options);
+};
+
+
 
 module.exports = {
     findUniqueUser,
     createUser,
     createFolder,
-    findUniqueFolder
+    findUniqueFolder,
+    findUniqueFile,
+    createFile
 };
