@@ -4,6 +4,12 @@
     const userMenuImg = document.querySelector(".user-menu-img");
     const uploadFileInput = document.querySelector(".upload-input");
     const uploadFileForm = document.querySelector(".upload-file-form");
+    const deleteModal = document.querySelector(".delete-form-modal");
+    const cancelDeleteBtn = document.querySelector(".cancel-delete-btn");
+    const folderContent = document.querySelector(".folder-contents");
+    const deleteIdInput = document.querySelector(".delete-id-input");
+    const deleteUrlInput = document.querySelector(".delete-url-input");
+    const deleteForm = document.querySelector(".delete-form");
 
 
     userMenuBtn.addEventListener("click",  function(event) {
@@ -25,6 +31,30 @@
     if (uploadFileForm) {
         uploadFileInput.addEventListener("input", function() {
             uploadFileForm.submit();
+        });
+    }
+
+
+    if (deleteModal) {
+        folderContent.addEventListener("click", function(event) {
+            if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
+                return;
+            }
+            if (!deleteModal.classList.contains("hidden")) {
+                return;
+            }
+
+            const target = (event.target.matches(".delete-btn")) ? event.target : event.target.parentElement;
+ 
+            deleteForm.action = target.dataset.action;
+            deleteIdInput.value = target.dataset.id;
+            console.log(deleteUrlInput)
+            deleteUrlInput.value = target.dataset.parentdirurl;
+            deleteModal.classList.toggle("hidden");
+        });
+
+        cancelDeleteBtn.addEventListener("click", function() {
+            deleteModal.classList.add("hidden");
         });
     }
 })();
