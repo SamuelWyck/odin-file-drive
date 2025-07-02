@@ -29,7 +29,8 @@ const userPageGet = asyncHandler(async function(req, res, next) {
     return res.render("folderPage", {
         docTitle: req.params.contentName,
         folderTitle: folder.name,
-        currentUrl: `/${path}/${contentName}`,
+        folderId: folder.id,
+        folderUrl: (path !== "") ? `/${path}/${contentName}` : `/${contentName}`,
         folders: folder.folders,
         files: folder.files
     });
