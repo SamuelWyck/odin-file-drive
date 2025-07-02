@@ -30,7 +30,7 @@ const userPageGet = asyncHandler(async function(req, res, next) {
         docTitle: req.params.contentName,
         folderTitle: folder.name,
         folderId: folder.id,
-        folderUrl: (path !== "") ? `/${path}/${contentName}` : `/${contentName}`,
+        folderUrl: (path !== "") ? `${path}/${contentName}` : contentName,
         folders: folder.folders,
         files: folder.files
     });
