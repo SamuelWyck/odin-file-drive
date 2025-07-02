@@ -8,6 +8,7 @@ const passport = require("./utils/passport.js");
 const addUserToRes = require("./utils/addUserMiddleware.js");
 const authRoute = require("./routes/authRoute.js");
 const userPageRoute = require("./routes/userPageRoute.js");
+const uploadRoute = require("./routes/uploadRoute.js");
 
 
 
@@ -44,6 +45,7 @@ app.use(addUserToRes);
 
 
 app.use("/auth", authRoute);
+app.use("/upload", uploadRoute);
 app.use("/", userPageRoute);
 
 
