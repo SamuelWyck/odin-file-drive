@@ -7,7 +7,7 @@
     const deleteModal = document.querySelector(".delete-form-modal");
     const cancelDeleteBtn = document.querySelector(".cancel-delete-btn");
     const folderContent = document.querySelector(".folder-contents");
-    const deleteIdInput = document.querySelector(".delete-id-input");
+    const deleteNameInput = document.querySelector(".delete-name-input");
     const deleteUrlInput = document.querySelector(".delete-url-input");
     const deleteForm = document.querySelector(".delete-form");
 
@@ -47,9 +47,8 @@
             const target = (event.target.matches(".delete-btn")) ? event.target : event.target.parentElement;
  
             deleteForm.action = target.dataset.action;
-            deleteIdInput.value = target.dataset.id;
-            console.log(deleteUrlInput)
-            deleteUrlInput.value = target.dataset.parentdirurl;
+            deleteNameInput.value = target.dataset.name;
+            deleteUrlInput.value = target.dataset.url;
             deleteModal.classList.toggle("hidden");
         });
 
