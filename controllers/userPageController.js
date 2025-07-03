@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../db/querys.js");
 const {format} = require("date-fns");
+const sysPath = require("node:path");
 
 
 
@@ -25,13 +26,13 @@ const userPageGet = asyncHandler(async function(req, res, next) {
             files: true
         }
     });
-
+    
 
     return res.render("folderPage", {
         docTitle: req.params.contentName,
         folderTitle: folder.name,
         folderId: folder.id,
-        folderUrl: (path !== "") ? `${path}/${contentName}` : contentName,
+        folderUrl: sysPath.join(path, contentName),
         folders: folder.folders,
         files: folder.files,
         format: format,
