@@ -20,6 +20,7 @@
                 <label tabindex="0" class="upload-label" for="file">
                     <p class="upload-message">Click or drop file to upload</p>
                     <img class="new-content-img" src="/plus-box.svg" alt="plus">
+                    <p class="upload-max-message">Max: 50MB</p>
                 </label>
                 <input class="upload-input" type="file" name="file" id="file" hidden>
             </form>
@@ -35,8 +36,8 @@
             <div class="delete-form-btns">
                 <button class="cancel-delete-btn" type="button">Cancel</button>
                 <form class="delete-form" action="/" method="POST">
-                    <input class="delete-id-input" type="text" name="id" hidden>
-                    <input class="delete-url-input" type="text" name="parentDirUrl" hidden>
+                    <input class="delete-url-input" type="text" name="url" hidden>
+                    <input class="delete-name-input" type="text" name="name" hidden>
                     <button class="confirm-delete-btn">Delete</button>
                 </form>
             </div>
