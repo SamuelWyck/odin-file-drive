@@ -10,6 +10,10 @@
     const deleteNameInput = document.querySelector(".delete-name-input");
     const deleteUrlInput = document.querySelector(".delete-url-input");
     const deleteForm = document.querySelector(".delete-form");
+    const createFolderModal = document.querySelector(".create-folder-modal");
+    const createFolderBtn = document.querySelector(".create-folder-btn");
+    const cancelFolderBtn = document.querySelector(".cancel-folder");
+    const formErrors = document.querySelector(".form-errors");
 
 
     userMenuBtn.addEventListener("click",  function(event) {
@@ -40,7 +44,8 @@
             if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
                 return;
             }
-            if (!deleteModal.classList.contains("hidden")) {
+            if (!deleteModal.classList.contains("hidden") || 
+                !createFolderModal.classList.contains("hidden")) {
                 return;
             }
 
@@ -54,6 +59,24 @@
 
         cancelDeleteBtn.addEventListener("click", function() {
             deleteModal.classList.add("hidden");
+        });
+
+        createFolderBtn.addEventListener("click", function() {
+            if (!deleteModal.classList.contains("hidden")) {
+                return;
+            }
+            if (!createFolderModal.classList.contains("hidden")) {
+                return;
+            }
+
+            if (formErrors) {
+                formErrors.style.display = "none";
+            }
+            createFolderModal.classList.remove("hidden");
+        });
+
+        cancelFolderBtn.addEventListener("click", function() {
+            createFolderModal.classList.add("hidden");
         });
     }
 })();
