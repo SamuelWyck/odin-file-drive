@@ -26,7 +26,12 @@ const userPageGet = asyncHandler(async function(req, res, next) {
             files: true
         }
     });
-    
+
+    const errors = req.session.errors;
+    if (req.session.errors) {
+        delete req.session.errors;
+    }
+
 
     return res.render("folderPage", {
         docTitle: req.params.contentName,
@@ -36,7 +41,9 @@ const userPageGet = asyncHandler(async function(req, res, next) {
         folders: folder.folders,
         files: folder.files,
         format: format,
-        formatStr: "MM/dd/yyyy"
+        formatStr: "MM/dd/yyyy",
+        errors: errors,
+        showFolderModal: (errors) ? true : false
     });
 });
 
