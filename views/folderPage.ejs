@@ -24,6 +24,10 @@
                 </label>
                 <input class="upload-input" type="file" name="file" id="file" hidden>
             </form>
+            <button class="create-folder-btn">
+                <p class="create-folder-message">Create folder</p>
+                <img class="new-content-img" src="/plus-box.svg" alt="plus">
+            </button>
             <% for (let folder of folders) { %>
                 <%- include("partials/contentCard", {content: folder, isFolder: true}) %>
             <% }%>
@@ -41,6 +45,21 @@
                     <button class="confirm-delete-btn">Delete</button>
                 </form>
             </div>
+        </div>
+        <div class="create-folder-modal <%= (showFolderModal) ? '' : 'hidden' %>">
+            <%- include("partials/errors") %>
+            <form action="/upload/folder" method="POST">
+                <input type="text" name="parentUrl" value="<%= folderUrl %>" hidden>
+                <input type="text" name="parentId" value="<%= folderId %>" hidden>
+                <div>
+                    <label for="folder-name">Folder name</label>
+                    <input type="text" id="folder-name" name="folderName" required>
+                </div>
+                <div>
+                    <button class="cancel-folder" type="button">Cancel</button>
+                    <button class="create-folder">Create</button>
+                </div>
+            </form>
         </div>
     </main>
 </div>
