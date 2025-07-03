@@ -7,6 +7,7 @@ const uploadRoute = Router();
 
 
 uploadRoute.post("/file", isLoggedIn, uploadController.uploadFilePost);
+uploadRoute.post("/folder", isLoggedIn, uploadController.uploadFolderPost);
 
 
 
