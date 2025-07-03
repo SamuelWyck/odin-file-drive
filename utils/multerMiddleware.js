@@ -25,17 +25,18 @@ function addExtension(fileName) {
 const storage = multer.diskStorage({
     destination: process.env.UPLOAD_DIR,
     filename: async function(req, file, cb) { 
+        let fileName = addExtension(file.originalname);
+
         const foundFile = await db.findUniqueFile({
             where: {
                 url_name_ownerId: {
-                    name: file.originalname,
+                    name: fileName,
                     url: req.body.folderUrl,
                     ownerId: req.user.id
                 }
             }
         });
 
-        let fileName = addExtension(file.originalname);
         if (foundFile) {
             fileName = getUniqueName(fileName);
         }
