@@ -7,6 +7,7 @@ const deleteRoute = Router();
 
 
 deleteRoute.post("/file", isLoggedIn, deleteController.deleteFilePost);
+deleteRoute.post("/folder", isLoggedIn, deleteController.deleteFolderPost);
 
 
 
