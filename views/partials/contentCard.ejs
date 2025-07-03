@@ -2,8 +2,8 @@
     <div class="content-card-info">
         <button 
         class="delete-btn" 
-        data-id="<%= content.id %>" 
-        data-parentdirurl="<%= locals.folderUrl %>"
+        data-url="<%= content.url %>" 
+        data-name="<%= content.name %>"
         data-action="/delete/<%= (isFolder) ? 'folder' : 'file' %>"
         >
             <img class="delete-img" src="/trash.svg" alt="delete">
