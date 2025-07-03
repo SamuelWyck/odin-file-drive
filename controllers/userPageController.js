@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const db = require("../db/querys.js");
 const {format} = require("date-fns");
 const sysPath = require("node:path");
+const formatUrl = require("../utils/formatUrl.js");
 
 
 
@@ -43,7 +44,8 @@ const userPageGet = asyncHandler(async function(req, res, next) {
         format: format,
         formatStr: "MM/dd/yyyy",
         errors: errors,
-        showFolderModal: (errors) ? true : false
+        showFolderModal: (errors) ? true : false,
+        formatUrl: formatUrl
     });
 });
 
