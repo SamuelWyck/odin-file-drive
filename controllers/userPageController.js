@@ -3,10 +3,11 @@ const db = require("../db/querys.js");
 const {format} = require("date-fns");
 const sysPath = require("node:path");
 const formatUrl = require("../utils/formatUrl.js");
+const supabase = require("../utils/supabaseConfig.js");
 
 
 
-const userPageGet = asyncHandler(async function(req, res, next) {
+const folderPageGet = asyncHandler(async function(req, res, next) {
     const path = req.params.path;
     const contentName = req.params.contentName;
     const isDir = req.params.isDir;
@@ -50,7 +51,34 @@ const userPageGet = asyncHandler(async function(req, res, next) {
 });
 
 
+const filePageGet = asyncHandler(async function(req, res) {
+    const path = req.params.path;
+    const contentName = req.params.contentName;
+
+    const file = await db.findUniqueFile({
+        where: {
+            url_name_ownerId: {
+                url: path,
+                name: contentName,
+                ownerId: req.user.id
+            }
+        }
+    });
+
+    const filePath = sysPath.join(path, contentName);
+
+    // return res.render("filePage", {
+    //     docTitle: file.name,
+    //     file: file
+    // });
+    //the file info will be a popup
+});
+
+
 
 module.exports = {
-    userPageGet
+    folderPageGet: [
+        folderPageGet,
+        filePageGet
+    ]
 };
