@@ -4,11 +4,13 @@ const db = require("../db/querys.js");
 const supabase = require("../utils/supabaseConfig.js");
 const {loadFile, deleteFile} = require("../utils/fileOperations.js");
 const path = require("node:path");
+const removeFirstDirFromPath = require("../utils/removeFirstDirFromPath.js");
 
 
 
 const uploadFilePost = asyncHandler(async function(req, res, next) {
     const fileName = req.file.finalName;
+    const filePath = path.join(req.body.folderUrl, fileName); 
 
     const file = await loadFile(fileName);
 
@@ -16,10 +18,7 @@ const uploadFilePost = asyncHandler(async function(req, res, next) {
         deleteFile(fileName),
         supabase.storage
         .from(process.env.SUPA_BUCKET)
-        .upload(
-            path.join(req.body.folderUrl, fileName),
-            file
-        )
+        .upload(filePath, file)
     ]);
 
     if (supa.error) {
@@ -37,13 +36,8 @@ const uploadFilePost = asyncHandler(async function(req, res, next) {
     });
 
 
-    let redirect = "/";
-    const folderUrl = req.body.folderUrl;
-    const firstSlashIndex = folderUrl.indexOf("/");
-    redirect = (firstSlashIndex !== -1) ? 
-        `${folderUrl.slice(firstSlashIndex)}` : redirect;
-
-    return res.redirect(redirect);
+    const redirect = removeFirstDirFromPath(req.body.folderUrl);
+    return res.redirect(`/${redirect}`);
 });
 
 
