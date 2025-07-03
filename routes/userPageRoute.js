@@ -8,7 +8,7 @@ const parseFilePath = require("../utils/parseFilePathMiddleware.js");
 const userPageRoute = Router();
 
 
-userPageRoute.get("/{*path}", isLoggedIn, parseFilePath, userPageCoontroller.userPageGet);
+userPageRoute.get("/{*path}", isLoggedIn, parseFilePath, userPageCoontroller.folderPageGet);
 
 
 
