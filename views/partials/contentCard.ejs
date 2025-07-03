@@ -8,7 +8,7 @@
         >
             <img class="delete-img" src="/trash.svg" alt="delete">
         </button>
-        <p class="content-card-name"><%= content.name %></p>
+        <p class="content-card-name"><%= `${content.name}${(isFolder) ? '/' : ''}` %></p>
     </div>
     <img 
         class="<%= (isFolder) ? 'folder-img' : 'file-img' %>" 
