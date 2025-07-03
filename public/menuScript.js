@@ -41,11 +41,20 @@
 
     if (deleteModal) {
         folderContent.addEventListener("click", function(event) {
-            if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
-                return;
-            }
             if (!deleteModal.classList.contains("hidden") || 
                 !createFolderModal.classList.contains("hidden")) {
+                return;
+            }
+
+            if (event.target.matches(".content-card") || 
+                event.target.matches(".content-card-name") || 
+                (event.target.parentElement.matches(".content-card") && 
+                !event.target.matches(".delete-btn"))) {
+                handleContentCardClick(event);
+                return;
+            }
+
+            if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
                 return;
             }
 
@@ -79,4 +88,21 @@
             createFolderModal.classList.add("hidden");
         });
     }
+
+
+    function handleContentCardClick(event) {
+        const elementsAtPoint = document.elementsFromPoint(
+            event.clientX, event.clientY
+        );
+
+        let target = null;
+        for (let ele of elementsAtPoint) {
+            if (ele.matches(".content-card")) {
+                target = ele;
+                break;
+            }
+        }
+
+        window.location.href = target.dataset.url;
+    };
 })();
