@@ -5,6 +5,8 @@ const supabase = require("../utils/supabaseConfig.js");
 const {loadFile, deleteFile} = require("../utils/fileOperations.js");
 const path = require("node:path");
 const removeFirstDirFromPath = require("../utils/removeFirstDirFromPath.js");
+const {createFolderValidator} = require("../utils/validators.js");
+const {validationResult} = require("express-validator");
 
 
 
@@ -41,10 +43,36 @@ const uploadFilePost = asyncHandler(async function(req, res, next) {
 });
 
 
+const uploadFolderPost = asyncHandler(async function(req, res) {
+    const redirect = removeFirstDirFromPath(req.body.parentUrl);
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        req.session.errors = errors.array();
+        return res.redirect(`/${redirect}`);
+    }
+
+    await db.createFolder({
+        data: {
+            name: req.body.folderName.trim(),
+            url: req.body.parentUrl,
+            parentId: req.body.parentId,
+            ownerId: req.user.id
+        }
+    });
+
+    return res.redirect(`/${redirect}`);
+});
+
+
 
 module.exports = {
     uploadFilePost: [
         upload.single("file"),
         uploadFilePost
+    ],
+    uploadFolderPost: [
+        createFolderValidator,
+        uploadFolderPost
     ]
 };
