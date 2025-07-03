@@ -23,6 +23,24 @@ function passwordsMatch(password, {req}) {
 };
 
 
+async function isUniqueFolderName(folderName, {req}) {
+    const folder = await db.findUniqueFolder({
+        where: {
+            url_name_ownerId: {
+                name: folderName,
+                url: req.body.parentUrl,
+                ownerId: req.user.id
+            }
+        }
+    });
+
+    if (folder) {
+        throw new Error();
+    }
+    return true;
+};
+
+
 const emptyMessage = "must not be empty";
 const tooShortMessage = "must be at least";
 
@@ -46,6 +64,18 @@ const signUpValidator = [
 
 
 
+const createFolderValidator = [
+    body("folderName").trim()
+    .notEmpty().withMessage(`Folder name ${emptyMessage}`)
+    .matches(/^[^\s]+$/).withMessage("Folder name must not contain spaces")
+    .matches(/^[^\/|\\]+$/).withMessage("Folder name must not contain slashes")
+    .matches(/^[^\.]+$/).withMessage("Folder name must not contain periods")
+    .custom(isUniqueFolderName).withMessage("Folders in the same folder must not have the same name")
+]
+
+
+
 module.exports = {
-    signUpValidator
+    signUpValidator,
+    createFolderValidator
 };
