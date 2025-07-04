@@ -11,8 +11,8 @@ const deleteFilePost = asyncHandler(async function(req, res, next) {
     const filePath = path.join(req.body.url, req.body.name);
 
     const {data, error} = await supabase
-        .storage.from(process.env.SUPA_BUCKET)
-        .remove([filePath]);
+    .storage.from(process.env.SUPA_BUCKET)
+    .remove([filePath]);
     
     if (error) {
         return next(error);
@@ -41,12 +41,14 @@ const deleteFolderPost = asyncHandler(async function(req, res, next) {
         req.user.id,
     );
 
-    const {data, error} = await supabase.storage
-    .from(process.env.SUPA_BUCKET)
-    .remove(files);
-
-    if (error) {
-        return next(error);
+    if (files.length > 0) {
+        const {data, error} = await supabase.storage
+        .from(process.env.SUPA_BUCKET)
+        .remove(files);
+    
+        if (error) {
+            return next(error);
+        }
     }
 
     await db.deleteFolder({
