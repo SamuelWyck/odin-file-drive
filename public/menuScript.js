@@ -14,6 +14,8 @@
     const createFolderBtn = document.querySelector(".create-folder-btn");
     const cancelFolderBtn = document.querySelector(".cancel-folder");
     const formErrors = document.querySelector(".form-errors");
+    const foldersDiv = document.querySelector(".folders");
+    const filesDiv = document.querySelector(".files");
 
 
     userMenuBtn.addEventListener("click",  function(event) {
@@ -31,29 +33,19 @@
         userMenuImg.classList.add("rotate");
     });
 
-
-    if (uploadFileForm) {
+    
+    
+    if (folderContent) {
         uploadFileInput.addEventListener("input", function() {
             uploadFileForm.submit();
         });
-    }
 
 
-    if (deleteModal) {
         folderContent.addEventListener("click", function(event) {
             if (!deleteModal.classList.contains("hidden") || 
                 !createFolderModal.classList.contains("hidden")) {
                 return;
             }
-
-            if (event.target.matches(".content-card") || 
-                event.target.matches(".content-card-name") || 
-                (event.target.parentElement.matches(".content-card") && 
-                !event.target.matches(".delete-btn"))) {
-                handleContentCardClick(event);
-                return;
-            }
-
             if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
                 return;
             }
@@ -66,9 +58,11 @@
             deleteModal.classList.toggle("hidden");
         });
 
+
         cancelDeleteBtn.addEventListener("click", function() {
             deleteModal.classList.add("hidden");
         });
+
 
         createFolderBtn.addEventListener("click", function() {
             if (!deleteModal.classList.contains("hidden")) {
@@ -84,13 +78,36 @@
             createFolderModal.classList.remove("hidden");
         });
 
+
         cancelFolderBtn.addEventListener("click", function() {
             createFolderModal.classList.add("hidden");
+        });
+
+
+        foldersDiv.addEventListener("click", function(event) {
+            if (!deleteModal.classList.contains("hidden") || 
+                !createFolderModal.classList.contains("hidden")) {
+                return;
+            }
+
+            if (event.target.matches(".content-card") || 
+                event.target.matches(".content-card-name") || 
+                (event.target.parentElement.matches(".content-card") && 
+                !event.target.matches(".delete-btn"))) {
+                handleFolderCardClick(event);
+                return;
+            }
+        });
+
+
+        filesDiv.addEventListener("click", function(event) {
+            //handle file details popup and editing file name
+            console.log("yes");
         });
     }
 
 
-    function handleContentCardClick(event) {
+    function handleFolderCardClick(event) {
         const elementsAtPoint = document.elementsFromPoint(
             event.clientX, event.clientY
         );
