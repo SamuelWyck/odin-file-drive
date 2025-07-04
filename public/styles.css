@@ -354,11 +354,21 @@ header .banner-backing {
     filter: var(--filter-color);
 }
 
+.folder-banner, .file-banner {
+    margin: 3rem 0;
+    color: var(--primary);
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--primary);
+}
+
 .folder-contents {
+    margin: 1rem;
+}
+
+.folders, .files {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
     grid-auto-rows: 300px;
-    justify-content: center;
     gap: 2rem;
     max-width: min(1200px, 100%);
     margin: 0 auto;
@@ -458,5 +468,9 @@ header .banner-backing {
 
     header .banner-backing {
         left: -5%;
+    }
+
+    .folders, .files {
+        justify-content: center;
     }
 }
