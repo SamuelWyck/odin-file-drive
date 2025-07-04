@@ -14,26 +14,32 @@
     <main>
         <p class="folder-name"><%= folderTitle %>/</p>
         <div class="folder-contents">
-            <form class="upload-file-form" action="/upload/file" method="POST" enctype="multipart/form-data">
-                <input type="text" name="folderUrl" value="<%= folderUrl %>" hidden>
-                <input type="text" name="folderId" value="<%= folderId %>" hidden>
-                <label tabindex="0" class="upload-label" for="file">
-                    <p class="upload-message">Click or drop file to upload</p>
+            <p class="folder-banner">Folders</p>
+            <div class="folders">
+                <button class="create-folder-btn">
+                    <p class="create-folder-message">Create folder</p>
                     <img class="new-content-img" src="/plus-box.svg" alt="plus">
-                    <p class="upload-max-message">Max: 50MB</p>
-                </label>
-                <input class="upload-input" type="file" name="file" id="file" hidden>
-            </form>
-            <button class="create-folder-btn">
-                <p class="create-folder-message">Create folder</p>
-                <img class="new-content-img" src="/plus-box.svg" alt="plus">
-            </button>
-            <% for (let folder of folders) { %>
-                <%- include("partials/contentCard", {content: folder, isFolder: true}) %>
-            <% }%>
-            <% for (let file of files) { %>
-                <%- include("partials/contentCard", {content: file, isFolder: false}) %>
-            <% } %>
+                </button>
+                <% for (let folder of folders) { %>
+                    <%- include("partials/contentCard", {content: folder, isFolder: true}) %>
+                <% }%>
+            </div>
+            <p class="file-banner">Files</p>
+            <div class="files">
+                <form class="upload-file-form" action="/upload/file" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="folderUrl" value="<%= folderUrl %>" hidden>
+                    <input type="text" name="folderId" value="<%= folderId %>" hidden>
+                    <label tabindex="0" class="upload-label" for="file">
+                        <p class="upload-message">Click or drop file to upload</p>
+                        <img class="new-content-img" src="/plus-box.svg" alt="plus">
+                        <p class="upload-max-message">Max: 50MB</p>
+                    </label>
+                    <input class="upload-input" type="file" name="file" id="file" hidden>
+                </form>
+                <% for (let file of files) { %>
+                    <%- include("partials/contentCard", {content: file, isFolder: false}) %>
+                <% } %>
+            </div>
         </div>
         <div class="delete-form-modal hidden">
             <p class="delete-form-title">Delete?</p>
