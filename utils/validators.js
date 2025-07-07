@@ -1,5 +1,6 @@
 const {body} = require("express-validator");
 const db = require("../db/querys.js");
+const addFileExtension = require("../utils/addFileExtension.js");
 
 
 
@@ -41,6 +42,24 @@ async function isUniqueFolderName(folderName, {req}) {
 };
 
 
+async function isUniqueFileName(filename, {req}) {
+    const file = await db.findUniqueFile({
+        where: {
+            url_name_ownerId: {
+                name: filename,
+                url: req.body.fileUrl,
+                ownerId: req.user.id
+            }
+        }
+    });
+
+    if (file) {
+        throw new Error();
+    }
+    return true;
+};
+
+
 const emptyMessage = "must not be empty";
 const tooShortMessage = "must be at least";
 
@@ -63,7 +82,6 @@ const signUpValidator = [
 ];
 
 
-
 const createFolderValidator = [
     body("folderName").trim()
     .notEmpty().withMessage(`Folder name ${emptyMessage}`)
@@ -71,11 +89,22 @@ const createFolderValidator = [
     .matches(/^[^\/|\\]+$/).withMessage("Folder name must not contain slashes")
     .matches(/^[^\.]+$/).withMessage("Folder name must not contain periods")
     .custom(isUniqueFolderName).withMessage("Folders in the same folder must not have the same name")
-]
+];
+
+
+const renameFileValidator = [
+    body("fileName").trim()
+    .notEmpty().withMessage(`File name ${emptyMessage}`)
+    .matches(/^[^\s]+$/).withMessage("File name must not contain spaces")
+    .matches(/^[^\/|\\]+$/).withMessage("File name must not contain slashes")
+    .customSanitizer(addFileExtension)
+    .custom(isUniqueFileName).withMessage("Files in the same folder must not have the same name")
+];
 
 
 
 module.exports = {
     signUpValidator,
-    createFolderValidator
+    createFolderValidator,
+    renameFileValidator
 };
