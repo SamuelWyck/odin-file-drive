@@ -25,6 +25,7 @@
     const fileDetailsEditBtn = document.querySelector(".file-edit-btn");
     const fileDetailsOriginalInput = document.querySelector(".file-edit-original-name");
     const fileEditForm = document.querySelector(".file-edit-form");
+    const realDownloadLink = document.querySelector(".download-link-hidden");
 
 
     userMenuBtn.addEventListener("click",  function(event) {
@@ -129,6 +130,8 @@
                     target.textContent = "Edit";
                     fileDetailsInput.value = fileDetailsInput.dataset.name;
                 }
+            } else if (target.matches(".download-link")) {
+                handleFileDownload(event);
             }
         });
 
@@ -199,5 +202,20 @@
         fileDetailsOriginalInput.value = target.dataset.name;
 
         fileDetailsModal.classList.remove("hidden");
+    };
+
+
+    function handleFileDownload(event) {
+        event.preventDefault();
+        
+        fetch(event.target.href)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(response) {
+            console.log(response)
+            realDownloadLink.href = response;
+            realDownloadLink.click();
+        });
     };
 })();
