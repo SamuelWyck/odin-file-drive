@@ -13,9 +13,18 @@
     const createFolderModal = document.querySelector(".create-folder-modal");
     const createFolderBtn = document.querySelector(".create-folder-btn");
     const cancelFolderBtn = document.querySelector(".cancel-folder");
-    const formErrors = document.querySelector(".form-errors");
+    const formErrors = document.querySelectorAll(".form-errors");
     const foldersDiv = document.querySelector(".folders");
     const filesDiv = document.querySelector(".files");
+    const fileDetailsInput = document.querySelector(".file-edit-input");
+    const fileDetailsUrlInput = document.querySelector(".file-edit-url");
+    const fileDetailsDateInput = document.querySelector(".file-edit-date");
+    const fileDetailsDateSpan = document.querySelector(".file-date-para :first-child");
+    const fileDownloadLink = document.querySelector(".download-link");
+    const fileDetailsModal = document.querySelector(".file-details-modal");
+    const fileDetailsEditBtn = document.querySelector(".file-edit-btn");
+    const fileDetailsOriginalInput = document.querySelector(".file-edit-original-name");
+    const fileEditForm = document.querySelector(".file-edit-form");
 
 
     userMenuBtn.addEventListener("click",  function(event) {
@@ -42,8 +51,7 @@
 
 
         folderContent.addEventListener("click", function(event) {
-            if (!deleteModal.classList.contains("hidden") || 
-                !createFolderModal.classList.contains("hidden")) {
+            if (modalsShowing()) {
                 return;
             }
             if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
@@ -65,15 +73,14 @@
 
 
         createFolderBtn.addEventListener("click", function() {
-            if (!deleteModal.classList.contains("hidden")) {
-                return;
-            }
-            if (!createFolderModal.classList.contains("hidden")) {
+            if (modalsShowing()) {
                 return;
             }
 
             if (formErrors) {
-                formErrors.style.display = "none";
+                formErrors.forEach(function(ele) {
+                    ele.style.display = "none";
+                });
             }
             createFolderModal.classList.remove("hidden");
         });
@@ -85,41 +92,112 @@
 
 
         foldersDiv.addEventListener("click", function(event) {
-            if (!deleteModal.classList.contains("hidden") || 
-                !createFolderModal.classList.contains("hidden")) {
+            if (modalsShowing()) {
                 return;
             }
-
-            if (event.target.matches(".content-card") || 
-                event.target.matches(".content-card-name") || 
-                (event.target.parentElement.matches(".content-card") && 
-                !event.target.matches(".delete-btn"))) {
+            if (isContentCard(event)) {
                 handleFolderCardClick(event);
-                return;
             }
         });
 
 
         filesDiv.addEventListener("click", function(event) {
-            //handle file details popup and editing file name
-            console.log("yes");
+            if (modalsShowing()) {
+                return;
+            }
+            if (isContentCard(event)) {
+                handleFileCardCLick(event);
+            }
+        });
+
+        fileDetailsModal.addEventListener("click", function(event) {
+            const target = event.target;
+            if (target.matches(".file-details-exit-btn")) {
+                fileDetailsModal.classList.add("hidden");
+
+                fileDetailsInput.disabled = true;
+                fileDetailsEditBtn.textContent = "Edit";
+
+            } else if (target.matches(".file-edit-btn")) {
+                const startEdit = (target.textContent === "Edit") ? true : false;
+                if (startEdit) {
+                    target.textContent = "Cancel";
+                    fileDetailsInput.disabled = false;
+                    fileDetailsInput.focus();
+                } else {
+                    fileDetailsInput.disabled = true;
+                    target.textContent = "Edit";
+                    fileDetailsInput.value = fileDetailsInput.dataset.name;
+                }
+            }
+        });
+
+
+        fileDetailsInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                fileEditForm.submit();
+            }
         });
     }
 
 
-    function handleFolderCardClick(event) {
+    function modalsShowing() {
+        if (!deleteModal.classList.contains("hidden") || 
+            !createFolderModal.classList.contains("hidden") ||
+            !fileDetailsModal.classList.contains("hidden")) {
+            return true;
+        }
+        return false;
+    };
+
+
+    function isContentCard(event) {
+        if (event.target.matches(".content-card") || 
+            event.target.matches(".content-card-name") || 
+            (event.target.parentElement.matches(".content-card") && 
+            !event.target.matches(".delete-btn"))) {
+            return true;
+        }
+        return false;
+    };
+
+
+    function getContentCardElement(event) {
         const elementsAtPoint = document.elementsFromPoint(
             event.clientX, event.clientY
         );
 
-        let target = null;
         for (let ele of elementsAtPoint) {
             if (ele.matches(".content-card")) {
-                target = ele;
-                break;
+                return ele;
             }
         }
+    };
 
+
+    function handleFolderCardClick(event) {
+        const target = getContentCardElement(event);
         window.location.href = target.dataset.url;
+    };
+
+
+    function handleFileCardCLick(event) {
+        const target = getContentCardElement(event);
+
+        if (formErrors) {
+            formErrors.forEach(function(ele) {
+                ele.style.display = "none";
+            });
+        }
+
+        fileDetailsInput.value = target.dataset.name;
+        fileDetailsDateSpan.textContent = target.dataset.date;
+        fileDownloadLink.href = `/download?path=${target.dataset.path}&name=${target.dataset.name}`;
+        fileDetailsInput.dataset.name = target.dataset.name;
+        fileDetailsUrlInput.value = target.dataset.path;
+        fileDetailsDateInput.value = target.dataset.date;
+        fileDetailsOriginalInput.value = target.dataset.name;
+
+        fileDetailsModal.classList.remove("hidden");
     };
 })();
