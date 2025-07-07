@@ -33,6 +33,13 @@ const folderPageGet = asyncHandler(async function(req, res, next) {
     if (req.session.errors) {
         delete req.session.errors;
     }
+    const fileDetails = req.session.fileDetails;
+    if (req.session.fileDetails) {
+        delete req.session.fileDetails;
+    }
+
+    const showFolderModal = (errors && !fileDetails) ? true : false;
+    const showFileModal = (errors && fileDetails) ? true : false;
 
 
     return res.render("folderPage", {
@@ -45,33 +52,11 @@ const folderPageGet = asyncHandler(async function(req, res, next) {
         format: format,
         formatStr: "MM/dd/yyyy",
         errors: errors,
-        showFolderModal: (errors) ? true : false,
+        fileDetails: fileDetails,
+        showFolderModal: showFolderModal,
+        showFileModal: showFileModal,
         formatUrl: formatUrl
     });
-});
-
-
-const filePageGet = asyncHandler(async function(req, res) {
-    const path = req.params.path;
-    const contentName = req.params.contentName;
-
-    const file = await db.findUniqueFile({
-        where: {
-            url_name_ownerId: {
-                url: path,
-                name: contentName,
-                ownerId: req.user.id
-            }
-        }
-    });
-
-    const filePath = sysPath.join(path, contentName);
-
-    // return res.render("filePage", {
-    //     docTitle: file.name,
-    //     file: file
-    // });
-    //the file info will be a popup
 });
 
 
@@ -79,6 +64,5 @@ const filePageGet = asyncHandler(async function(req, res) {
 module.exports = {
     folderPageGet: [
         folderPageGet,
-        filePageGet
     ]
 };
