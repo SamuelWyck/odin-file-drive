@@ -3,7 +3,6 @@ const db = require("../db/querys.js");
 const {format} = require("date-fns");
 const sysPath = require("node:path");
 const formatUrl = require("../utils/formatUrl.js");
-const supabase = require("../utils/supabaseConfig.js");
 
 
 
