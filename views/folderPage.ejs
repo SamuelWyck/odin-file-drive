@@ -14,7 +14,9 @@
     <main>
         <p class="folder-name"><%= folderTitle %>/</p>
         <div class="folder-contents">
-            <p class="folder-banner">Folders</p>
+            <div class="banner-wrapper">
+                <button class="folder-banner">Folders <img class="folder-arrow-img" src="/menu-arrow.svg" alt=""></button>
+            </div>
             <div class="folders">
                 <button class="create-folder-btn">
                     <p class="create-folder-message">Create folder</p>
@@ -24,7 +26,9 @@
                     <%- include("partials/contentCard", {content: folder, isFolder: true}) %>
                 <% }%>
             </div>
-            <p class="file-banner">Files</p>
+            <div class="banner-wrapper">
+                <button class="file-banner">Files <img class="file-arrow-img" src="/menu-arrow.svg" alt=""></button>
+            </div>
             <div class="files">
                 <form class="upload-file-form" action="/upload/file" method="POST" enctype="multipart/form-data">
                     <input type="text" name="folderUrl" value="<%= folderUrl %>" hidden>
