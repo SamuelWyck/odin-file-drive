@@ -10,6 +10,7 @@ const authRoute = require("./routes/authRoute.js");
 const userPageRoute = require("./routes/userPageRoute.js");
 const uploadRoute = require("./routes/uploadRoute.js");
 const deleteRoute = require("./routes/deleteRoute.js");
+const updateRoute = require("./routes/updateRoute.js");
 
 
 
@@ -47,6 +48,7 @@ app.use(addUserToRes);
 
 app.use("/auth", authRoute);
 app.use("/upload", uploadRoute);
+app.use("/update", updateRoute);
 app.use("/delete", deleteRoute);
 app.use("/", userPageRoute);
 
