@@ -214,7 +214,7 @@ header .banner-backing {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .upload-label, .create-folder-btn {
@@ -354,11 +354,45 @@ header .banner-backing {
     filter: var(--filter-color);
 }
 
-.folder-banner, .file-banner {
+.banner-wrapper {
+    border-bottom: 2px solid var(--primary);
     margin: 3rem 0;
+    padding: 0 1rem;
+    overflow: hidden;
+}
+
+.folder-banner, .file-banner {
+    cursor: pointer;
     color: var(--primary);
     font-size: 1.6rem;
-    border-bottom: 2px solid var(--primary);
+    border: none;
+    background-color: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    will-change: transform;
+    transition: transform .1s ease-in-out;
+    transform-origin: left;
+}
+
+.folder-banner:hover, .file-banner:focus,
+.file-banner:hover, .file-banner:focus {
+    transform: scale(1.1);
+}
+
+.folder-banner img, .file-banner img {
+    width: 40px;
+    position: relative;
+    top: 2px;
+    filter: 
+    brightness(0) 
+    saturate(100%) 
+    invert(47%) 
+    sepia(10%) 
+    saturate(2172%) 
+    hue-rotate(94deg) 
+    brightness(104%) 
+    contrast(84%);
 }
 
 .folder-contents {
