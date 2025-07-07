@@ -459,6 +459,80 @@ header .banner-backing {
     padding: .4rem .9rem;
 }
 
+.file-details-modal {
+    position: fixed;
+    width: fit-content;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 25%;
+    background-color: var(--bg-light);
+    box-shadow: 0px 0px 5px 0px gray;
+    padding: 1rem;
+    border: 3px solid var(--primary);
+}
+
+.file-details-modal > :first-child {
+    display: flex;
+    justify-content: end;
+}
+
+.file-details-exit-btn {
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--bg-light);
+    border: none;
+    padding: .5rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px 0px gray;
+    will-change: transform;
+    transition: transform .2s ease-in-out;
+}
+
+.file-details-exit-btn:hover, 
+.file-details-exit-btn:focus {
+    transform: scale(1.1);
+}
+
+.file-details-modal input {
+    margin: 1rem 0 .5rem 0;
+}
+
+.file-details-modal input:disabled:hover,
+.file-details-modal input:disabled:focus,
+.file-details-modal input:disabled {
+    border-color: var(--bg-dark);
+}
+
+.file-details-modal form > :last-child {
+    display: flex;
+    justify-content: center;
+}
+
+.file-details-modal p {
+    margin: 1.5rem 0;
+    color: var(--text-muted);
+}
+
+.file-details-modal a {
+    text-decoration: none;
+    color: var(--bg-light);
+    background-color: var(--primary);
+    font-size: 1.1rem;
+    padding: .5rem 1rem;
+    box-shadow: 0px 0px 5px 0px gray;
+    border: 2px solid var(--primary);
+    display: flex;
+    justify-content: center;
+}
+
+.file-details-modal a:hover,
+.file-details-modal a:focus {
+    background-color: var(--bg-light);
+    color: var(--primary);
+}
+
 
 
 @media screen and (width <= 500px) {
