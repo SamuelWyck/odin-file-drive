@@ -11,6 +11,7 @@ const userPageRoute = require("./routes/userPageRoute.js");
 const uploadRoute = require("./routes/uploadRoute.js");
 const deleteRoute = require("./routes/deleteRoute.js");
 const updateRoute = require("./routes/updateRoute.js");
+const downloadRoute = require("./routes/downloadRoute.js");
 
 
 
@@ -50,6 +51,7 @@ app.use("/auth", authRoute);
 app.use("/upload", uploadRoute);
 app.use("/update", updateRoute);
 app.use("/delete", deleteRoute);
+app.use("/download", downloadRoute);
 app.use("/", userPageRoute);
 
 
