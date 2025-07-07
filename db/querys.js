@@ -48,6 +48,11 @@ async function deleteFolder(options) {
 };
 
 
+async function updateFile(options) {
+    await prisma.file.update(options);
+};
+
+
 
 module.exports = {
     findUniqueUser,
@@ -57,5 +62,6 @@ module.exports = {
     findUniqueFile,
     createFile,
     deleteFile,
-    deleteFolder
+    deleteFolder,
+    updateFile
 };
