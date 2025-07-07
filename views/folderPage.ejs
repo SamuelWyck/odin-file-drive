@@ -67,6 +67,60 @@
                 </div>
             </form>
         </div>
+        <div class="file-details-modal <%= (showFileModal) ? '' : 'hidden' %>">
+            <div>
+                <button class="file-details-exit-btn">X</button>
+            </div>
+            <%- include("partials/errors") %>
+            <form class="file-edit-form" action="/update/file" method="POST">
+                <div>
+                    <input 
+                        class="file-edit-input" 
+                        type="text" name="fileName" 
+                        value="<%= (fileDetails) ? fileDetails.fileName : '' %>"
+                        data-name="<%= (fileDetails) ? fileDetails.fileOriginalName : '' %>" 
+                        disabled
+                    >
+                </div>
+                <input 
+                    type="text" 
+                    name="fileUrl" 
+                    class="file-edit-url" 
+                    value="<%= (fileDetails) ? fileDetails.fileUrl : '' %>" 
+                    hidden
+                >
+                <input 
+                    type="text" 
+                    name="fileDate" 
+                    class="file-edit-date" 
+                    value="<%= (fileDetails) ? fileDetails.fileDate : '' %>" 
+                    hidden
+                >
+                <input 
+                    type="text" 
+                    name="fileOriginalName"
+                    class="file-edit-original-name" 
+                    value="<%= (fileDetails) ? fileDetails.fileOriginalName : '' %>" 
+                    hidden
+                >
+                <div>
+                    <button class="file-edit-btn" type="button">Edit</button>
+                </div>
+            </form>
+            <p class="file-date-para">
+                Created: 
+                <span>
+                    <%= (fileDetails) ? fileDetails.fileDate : '' %>
+                </span>
+            </p>
+            <a 
+                class="download-link" 
+                href="<%= (fileDetails) ? fileDetails.fileDownloadLink : '/' %>" 
+                download
+            >
+                Download
+            </a>
+        </div>
     </main>
 </div>
 </body>
