@@ -12,7 +12,8 @@
 <div id="root">
     <%- include("partials/header") %>
     <main>
-        <p class="folder-name"><%= folderTitle %>/</p>
+        <!-- <p class="folder-name"><%= folderTitle %>/</p> -->
+        <%- include("partials/pathLinks", {pathLinks: pathLinks}) %>
         <div class="folder-contents">
             <div class="banner-wrapper">
                 <button class="folder-banner">Folders <img class="folder-arrow-img" src="/menu-arrow.svg" alt=""></button>
