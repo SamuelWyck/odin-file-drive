@@ -26,6 +26,8 @@
     const fileDetailsOriginalInput = document.querySelector(".file-edit-original-name");
     const fileEditForm = document.querySelector(".file-edit-form");
     const realDownloadLink = document.querySelector(".download-link-hidden");
+    const folderBtnImg = document.querySelector(".folder-arrow-img");
+    const fileBtnImg = document.querySelector(".file-arrow-img");
 
 
     userMenuBtn.addEventListener("click",  function(event) {
@@ -53,6 +55,11 @@
 
         folderContent.addEventListener("click", function(event) {
             if (modalsShowing()) {
+                return;
+            }
+            if (event.target.matches(".folder-banner") || 
+                event.target.matches(".file-banner")) {
+                handleFolderContentToggle(event);
                 return;
             }
             if (!event.target.matches(".delete-btn") && !event.target.matches(".delete-img")) {
@@ -217,5 +224,16 @@
             realDownloadLink.href = response;
             realDownloadLink.click();
         });
+    };
+
+
+    function handleFolderContentToggle(event) {
+        if (event.target.matches(".folder-banner")) {
+            foldersDiv.classList.toggle("hidden");
+            folderBtnImg.classList.toggle("rotate");
+        } else {
+            filesDiv.classList.toggle("hidden");
+            fileBtnImg.classList.toggle("rotate");
+        }
     };
 })();
