@@ -1,5 +1,6 @@
 const multer = require("multer");
 const db = require("../db/querys.js");
+const addExtension = require("../utils/addFileExtension.js");
 
 
 
@@ -9,15 +10,6 @@ function getUniqueName(fileName) {
     const endNameIndex = (nameParts.length <= 2) ? 0 : nameParts.length - 2;
     nameParts[endNameIndex] += uniqueSuffix;
     fileName = nameParts.join(".");
-    return fileName;
-};
-
-
-function addExtension(fileName) {
-    const extensionStartIndex = fileName.indexOf(".");
-    if (extensionStartIndex === -1) {
-        fileName += ".file";
-    }
     return fileName;
 };
 
