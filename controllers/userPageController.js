@@ -3,16 +3,13 @@ const db = require("../db/querys.js");
 const {format} = require("date-fns");
 const sysPath = require("node:path");
 const formatUrl = require("../utils/formatUrl.js");
+const getPathLinks = require("../utils/getPathLinks.js");
 
 
 
 const folderPageGet = asyncHandler(async function(req, res, next) {
     const path = req.params.path;
     const contentName = req.params.contentName;
-    const isDir = req.params.isDir;
-    if (!isDir) {
-        return next();
-    }
 
     const folder = await db.findUniqueFolder({
         where: {
@@ -27,6 +24,17 @@ const folderPageGet = asyncHandler(async function(req, res, next) {
             files: true
         }
     });
+
+    if ((!folder)) {
+        return next(new Error("Folder not found"));
+    }
+
+
+    const pathLinks = getPathLinks(
+        sysPath.join(path, contentName),
+        req.user.username
+    );
+
 
     const errors = req.session.errors;
     if (req.session.errors) {
@@ -54,7 +62,8 @@ const folderPageGet = asyncHandler(async function(req, res, next) {
         fileDetails: fileDetails,
         showFolderModal: showFolderModal,
         showFileModal: showFileModal,
-        formatUrl: formatUrl
+        formatUrl: formatUrl,
+        pathLinks: pathLinks
     });
 });
 
