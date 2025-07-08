@@ -58,7 +58,9 @@
                 return;
             }
             if (event.target.matches(".folder-banner") || 
-                event.target.matches(".file-banner")) {
+                event.target.matches(".file-banner") || 
+                event.target.matches(".file-arrow-img") ||
+                event.target.matches(".folder-arrow-img")) {
                 handleFolderContentToggle(event);
                 return;
             }
@@ -228,7 +230,8 @@
 
 
     function handleFolderContentToggle(event) {
-        if (event.target.matches(".folder-banner")) {
+        if (event.target.matches(".folder-banner") ||
+            event.target.matches(".folder-arrow-img")) {
             foldersDiv.classList.toggle("hidden");
             folderBtnImg.classList.toggle("rotate");
         } else {

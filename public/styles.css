@@ -370,7 +370,7 @@ header .banner-backing {
     color: var(--primary);
     font-size: 1.6rem;
     border: none;
-    background-color: var(--bg-dark);
+    background: none;
     display: flex;
     align-items: center;
     width: 100%;
