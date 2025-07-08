@@ -54,6 +54,20 @@ app.use("/delete", deleteRoute);
 app.use("/download", downloadRoute);
 app.use("/", userPageRoute);
 
+app.use(function(req, res) {
+    return res.render("errorPage", {
+        docTitle: "Page not found",
+        errorMessage: "Page not found"
+    });
+});
+
+app.use(function(error, req, res, next) {
+    return res.render("errorPage", {
+        docTitle: "Error",
+        errorMessage: "Something went wrong"
+    });
+});
+
 
 const PORT = process.env.PORT;
 
